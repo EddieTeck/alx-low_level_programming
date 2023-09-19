@@ -1,8 +1,3 @@
-/*
- * File: 9-strcpy.c
- * Auth: Edidiong Etim
- */
-
 #include "main.h"
 
 /**
