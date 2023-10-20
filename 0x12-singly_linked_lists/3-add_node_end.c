@@ -1,61 +1,64 @@
 #include "lists.h"
 /**
- * _strlen - determines the string length
- * @str: given string
- *
- * Return: an integer length
- */
-int _strlen(const char *str)
-{
-	int length = 0;
-
-	while (str)
-		length++;
-	return (length);
-}
-
-/**
- * add_node_end - add a node at the end of list
- * @head: the head of the list
- * @str: a given string
- *
- * Return: a pointer to the new element
+ * add_node_end - add a new node to the end of a list
+(* a blank line
+ *@head: the head of list
+ *@str: the string to put in the new node
+* Description: add a new node to the end of a list)?
+(* section header: the header of this function is lists.h)*
+* Return: the list
  */
 list_t *add_node_end(list_t **head, const char *str)
 {
-	list_t *new_node;
-	list_t *tmp;
-	tmp = *head;
+	list_t *node, *tail;
+	char *_str;
 
-	if (!str)
+	tail = *head;
+
+	if (str == NULL)
 		return (NULL);
-
-	/* nod memeorty allocation */
-	new_node = malloc(sizeof(list_t));
-
-	if (new_node == NULL)
+	node = malloc(sizeof(list_t));
+	if (node == NULL)
 		return (NULL);
-	/* Nod creation and initialization */
-	new_node->next = NULL;
-	new_node->str = strdup(str);
-	/* check memory allocation for strdup */
-	if (new_node->str == NULL)
+	_str = strdup(str);
+	if (_str == NULL)
 	{
-		free(new_node);
+		free(node);
 		return (NULL);
 	}
-	new_node->len = _strlen(str);
-	/* checking if there is more than 2 elements(list exist) */
-	if (*head == NULL)
+	node->len = _strlen(_str);
+	node->str = _str;
+	node->next = '\0';
+
+	if (*head == '\0')
 	{
-		*head = new_node;
-		return (new_node);
+		*head = node;
+		return (node);
 	}
-	/* searcing for n-1 last element of the list where to point */
-	while (tmp->next)
+
+	while (tail->next)
+		tail = tail->next;
+
+	tail->next = node;
+
+	return (tail);
+
+}
+/**
+ * _strlen - this functions prints the lenght of a string
+ (* a blank line
+ *@s: string to print.
+ * Description: this function prints the lenght of a string?
+ (* section header: the header of this function is holberton.h)*
+ * Return: retunrn the lenght in int
+ */
+int _strlen(char *s)
+{
+	if (*s != '\0')
 	{
-		tmp = tmp->next;
-	tmp->next = new_node;
+		s++;
+		return (1 + _strlen(s));
 	}
-	return (new_node);
+	else
+		return (0);
 }
