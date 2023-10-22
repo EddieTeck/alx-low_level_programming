@@ -1,72 +1,47 @@
-#include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
- * main - this program adds two numbers
-(* a blank line
-*@argc: this is the quantity of parameters
-*@argv: the parameter to put in the program.
-* Description: this program adds two numbers)?
-* Return: return 0 or 1
- */
+ * main - prints minimum number coins to make change for an amount of money.
+ * @argc: number of arguments
+ * @argv: array with the arguments
+ *
+ * Return: always 0
+ **/
+
 int main(int argc, char *argv[])
 {
-	int cent, in;
-
-	cent = 0;
-	in = 0;
+	int dev = 0, coins = 0;
+	char c[] = "Error";
 
 	if (argc != 2)
 	{
-		printf("Error\n");
+		printf("%s\n", c);
 		return (1);
 	}
-	in = _atoi(argv[1]);
-	while (in > 0)
+	dev = atoi(argv[1]);
+	while (dev >= 25)
 	{
-		if (in - 25 >= 0)
-			in = in - 25;
-		else if (in - 10 >= 0)
-			in = in - 10;
-		else if (in - 5 >= 0)
-			in = in - 5;
-		else if (in - 2 >= 0)
-			in = in - 2;
-		else if (in - 1 >= 0)
-			in = in - 1;
-		cent++;
+		dev -= 25;
+		coins++;
 	}
-	printf("%d\n", cent);
+	while (dev >= 10)
+	{
+		dev -= 10;
+		coins++;
+	}
+	while (dev >= 5)
+	{
+		dev -= 5;
+		coins++;
+	}
+	while (dev >= 2)
+	{
+		dev -= 2;
+		coins++;
+	}
+	if (dev == 1)
+		coins++;
+	printf("%d\n", coins);
 	return (0);
-}
-/**
- * _atoi - this function converts a string to integer
-(* a blank line
-*@s: the string for convert to integer
-* Description: this funtion converts a string to integer)?
-(* section header: the header of this function is holberton.h)*
-* Return: this funtion returns the result
-*/
-int _atoi(char *s)
-{
-	int counter, sign;
-	unsigned int number;
-
-	sign = 1;
-	counter = 0;
-	number = 0;
-
-
-	while ((s[counter] < '0' || s[counter] > '9') && (s[counter] != '\0'))
-	{
-		if (s[counter] == '-')
-			sign *= -1;
-		counter++;
-	}
-	while ((s[counter] >= '0') && (s[counter] <= '9'))
-	{
-		number = number * 10 + (s[counter] - '0');
-		counter++;
-	}
-	return (number * sign);
 }
